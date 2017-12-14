@@ -299,7 +299,11 @@ function init(server, app, log, redSettings) {
     settings.defaultGroupHeader = uiSettings.defaultGroup || 'Default';
     settings.verbose = redSettings.verbose || false;
 
-    var fullPath = join(redSettings.httpNodeRoot, settings.path);
+    var nodeRoot = redSettings.httpNodeRoot;
+    if (nodeRoot.slice(-1) != "/") {
+        nodeRoot = nodeRoot+"/";
+    }
+    var fullPath = join(nodeRoot, settings.path);
     var socketIoPath = join(fullPath, 'socket.io');
 
     io = socketio(server, {path: socketIoPath});
